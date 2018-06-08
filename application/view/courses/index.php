@@ -28,6 +28,9 @@
 				                        <?php $this->insert('tree/courseChild', ['childs' => $courseModel->childs($course->id) , 'courseModel' => $courseModel]) ?>
 
 									<?php endif ?>
+									<?php if(count($courseModel->subjects($course->id))) : ?>
+				                        <?php $this->insert('tree/subjectChild', ['subjects' => $courseModel->subjects($course->id) , 'courseModel' => $courseModel , 'course' => $course]) ?>										
+									<?php endif ?>
 
 				                </li>
 				                </h3>

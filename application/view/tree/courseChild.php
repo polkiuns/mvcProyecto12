@@ -13,6 +13,10 @@
 
 	<?php endif ?>
 
+	<?php if(count($courseModel->subjects($child->id))): ?>
+		<?php $this->insert('tree/subjectChild', ['subjects' => $courseModel->subjects($child->id) , 'courseModel' => $courseModel , 'course' => $child]) ?>		
+	<?php endif ?>
+
 	</li>
 
 

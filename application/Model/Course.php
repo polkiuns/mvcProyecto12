@@ -47,6 +47,17 @@ class Course
 		return $query->fetchColumn();			
 	}
 
+	public function subjects($id)
+	{
+		$conn = Database::getInstance()->getDatabase();
+		$ssql = "SELECT name , url FROM subjects WHERE id IN (SELECT subject_id FROM course_subject WHERE course_id = :course_id)";
+		$query = $conn->prepare($ssql);
+		$parameters = array(':course_id' => $id);
+		$query->execute($parameters);
+		//echo '[ PDO DEBUG ]: ' . Helper::debugPDO($ssql, $parameters);  exit();
+		return $query->fetchAll();			
+	}
+
 	public static function find($course)
 	{
 		$conn = Database::getInstance()->getDatabase();

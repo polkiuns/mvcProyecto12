@@ -25,11 +25,14 @@ class AuthsController extends Controller
 		} else {
 			
 			if (Auth::user($_POST)) {
+				$newUser = new Auth;
 				$user = Auth::user($_POST);
+				$role = Auth::getRole($user->role_id);
+
 				Sesion::add('name' , $user->name);
 				Sesion::add('email' , $user->email);
 				Sesion::add('password' , $user->password);
-				Sesion::add('role' , $user->role);
+				Sesion::add('role' , $role);
 				Sesion::add('logged' , true);
 				Sesion::addFeedback('feedback_positive' , 'Logueo con exito');
 				header('location: ' . URL . '/');

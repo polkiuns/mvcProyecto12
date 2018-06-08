@@ -9,7 +9,6 @@
         <li class="active">Cursos</li>
       </ol>
     </section>
-  <?=d($courses)?>
             <div class="box">
               <div class="box-header">
                 <h3 class="box-title">Listado de cursos</h3>
@@ -26,18 +25,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                  
-					<?php foreach($courses as $course): ?>
+          
+					<?php foreach($students as $student): ?>
                     <tr>
-                      <td><?= $course->id ?></td>
-                      <td><?= $course->name ?></td>
-                      <td><?= isset($course->course_id) ? $model->parentName($course->course_id) : 'Cat.Padre' ?></td>
+                      <td><?= $student->id ?></td>
+                      <td><?= $student->name ?></td>
+                      <td>
+                        <?php if (count($model->getSubjects($student->id))) : ?>
+                          <?php foreach($model->getSubjects($student->id) as $subject): ?>
+                            | <?= $subject->name ?> |
+                          <?php endforeach ?>
+                        <?php endif ?>
+                      </td>
                       <td>
                           
-                          <a href="<?php echo URL . 'courses/edit/' . $course->url ?>" title="Editar curso" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i></a>
+                          <a href="<?php echo URL . 'students/edit/' . $student->id ?>" title="Editar curso" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i></a>
                          
-                          <form method = "POST" action ="<?php echo URL . 'courses/delete/' ?>" style="display: inline;">
-                            <input value="<?=$course->id?>" type="hidden" name="id">
+                          <form method = "POST" action ="<?php echo URL . 'students/delete/' ?>" style="display: inline;">
+                            <input value="<?=$student->user_id?>" type="hidden" name="id">
                           <button onclick = "return confirm('¿Estas seguro de querer borrar este curso?')" title="Eliminar curso" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button>
                           
                           </form>
@@ -49,3 +54,4 @@
               </table>
             </div>
           </div>
+
